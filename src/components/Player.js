@@ -109,6 +109,7 @@ const Player = ({
       <audio
         onTimeUpdate={timeUpdateHandler}
         onLoadedMetadata={timeUpdateHandler}
+        onEnded={() => skipTrackHandler("skip-forward")}
         ref={audioRef}
         src={currentSong.audio}
       ></audio>
