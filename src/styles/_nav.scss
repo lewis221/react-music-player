@@ -23,4 +23,11 @@ nav {
       z-index: 10;
     }
   }
+  .library-active {
+    nav {
+      button {
+        margin-right: 5rem;
+      }
+    }
+  }
 }
