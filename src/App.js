@@ -24,7 +24,14 @@ function App() {
   const timeUpdateHandler = (e) => {
     const current = e.target.currentTime;
     const duration = e.target.duration;
-    setSongInfo({ ...songInfo, currentTime: current, duration });
+    // Calculate Percentage
+    const animationPercentage = (current / duration) * 100;
+    setSongInfo({
+      ...songInfo,
+      currentTime: current,
+      duration,
+      animationPercentage,
+    });
   };
 
   return (

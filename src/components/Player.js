@@ -17,6 +17,7 @@ const Player = ({
   songs,
   setCurrentSong,
   setSongs,
+  timeUpdateHandler,
 }) => {
   // useEffect
   useEffect(() => {
@@ -65,18 +66,24 @@ const Player = ({
       setCurrentSong(songs[(currentIndex - 1 + songs.length) % songs.length]);
     }
   };
-
+  // Add the styles
+  const trackAim = {
+    transform: `translateX(${songInfo.animationPercentage}%)`
+  }
   return (
     <div className="player">
       <div className="time-control">
         <p>{getTime(songInfo.currentTime)}</p>
-        <input
-          type="range"
-          min={0}
-          max={songInfo.duration || 0}
-          onChange={dragHandler}
-          value={songInfo.currentTime}
-        />
+        <div style={{ background: `linear-gradient(to right, ${currentSong.color[0]}, ${currentSong.color[1]})` }} className="track">
+          <input
+            type="range"
+            min={0}
+            max={songInfo.duration || 0}
+            onChange={dragHandler}
+            value={songInfo.currentTime}
+          />
+          <div style={trackAim} className="animate-track"></div>
+        </div>
         <p>{getTime(songInfo.duration)}</p>
       </div>
       <div className="play-control">
@@ -99,6 +106,12 @@ const Player = ({
           onClick={() => skipTrackHandler("skip-forward")}
         />
       </div>
+      <audio
+        onTimeUpdate={timeUpdateHandler}
+        onLoadedMetadata={timeUpdateHandler}
+        ref={audioRef}
+        src={currentSong.audio}
+      ></audio>
     </div>
   );
 };
